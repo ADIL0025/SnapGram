@@ -5,6 +5,8 @@ import * as z from "zod"
 import { SignupValidation } from "@/lib/validation"
 import { Input } from "@/components/ui/input"
 import { Link, useNavigate } from 'react-router-dom'
+import { useToast } from "@/components/ui/use-toast"
+
 
 import {
   Form,
@@ -21,6 +23,7 @@ import { createUserAccount } from "@/lib/appwrite/api"
 
 
 const SignupForm = () => {
+  const { toast } = useToast()
   const isLoading = false;
 
 
@@ -40,7 +43,10 @@ const SignupForm = () => {
     const newUser = await createUserAccount(values);
 
 
-    console.log(newUser)
+    if(!newUser) {
+      return toast({title: "Sign Up Failed. Please try again."})
+    }
+    // const session = await signInAccount()
   }
   return (
     <Form {...form}>
