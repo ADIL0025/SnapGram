@@ -19,11 +19,14 @@ import {
 } from "@/components/ui/form"
 import Loader from "@/components/shared/Loader"
 import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
+import { useUSerContext } from "@/context/AuthContext"
 
 
 
 const SignupForm = () => {
   const { toast } = useToast()
+  const { checkAuthUser, isLoading: isUserLoading } = useUSerContext();
+  const navigate = useNavigate();
 
   const { mutateAsync: createUserAccount, isLoading: isCreatingUser } = useCreateUserAccount();
 
@@ -59,7 +62,18 @@ const SignupForm = () => {
     if(!session) {
       return toast({title: "Sign in Failed. Please try again."})
     }
+
+    const isLoggedIn = await checkAuthUser();
+    
+    if(isLoggedIn){
+      form.reset();
+
+      navigate('/');
+    } else {
+      return toast({title: "Sign Up Failed. Please try again."})
+    }
   }
+
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
