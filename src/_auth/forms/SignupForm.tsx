@@ -8,10 +8,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useToast } from "@/components/ui/use-toast"
 
 
+
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -61,7 +61,7 @@ const SignupForm = () => {
 
 
     if(!session) {
-      return toast({title: "Sign in Failed. Please try again."})
+      return toast({title: "Sign in Failed. please try again."})
     }
 
     const isLoggedIn = await checkAuthUser();
@@ -71,7 +71,7 @@ const SignupForm = () => {
 
       navigate('/');
     } else {
-      return toast({title: "Sign Up Failed. Please try again."})
+      return toast({title: "Sign up Failed. Please try again."})
     }
   }
 
@@ -158,4 +158,7 @@ const SignupForm = () => {
   )
 }
 
-export default SignupForm 
+export default SignupForm
+
+
+
